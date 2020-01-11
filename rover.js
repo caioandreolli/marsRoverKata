@@ -35,19 +35,19 @@ let rover = {
     switch (rover.direction){
       case 'W':
         rover.direction = 'S';
-        console.log(rover.direction);
+        //console.log(rover.direction);
         break;
       case 'S':
         rover.direction = 'E';
-        console.log(rover.direction);
+        //console.log(rover.direction);
         break;
       case 'E':
         rover.direction = 'N';
-        console.log(rover.direction);
+        //console.log(rover.direction);
         break;
       default:
         rover.direction = 'W';
-        console.log(rover.direction);
+        //console.log(rover.direction);
     }
     
     travelLog(rover.travelLog, rover.direction);
@@ -60,19 +60,19 @@ let rover = {
     switch (rover.direction){
       case 'W':
         rover.direction = 'N';
-        console.log(rover.direction);
+        //console.log(rover.direction);
         break;
       case 'E':
         rover.direction = 'S';
-        console.log(rover.direction);
+        //console.log(rover.direction);
         break;
       case 'S':
         rover.direction = 'W';
-        console.log(rover.direction);
+        //console.log(rover.direction);
         break;
       default:
         rover.direction = 'E';
-        console.log(rover.direction);
+        //console.log(rover.direction);
     }
     
     travelLog(rover.travelLog, rover.direction);
@@ -81,31 +81,78 @@ let rover = {
   
   
   function moveForward(rover){
-    
+      switch (rover.direction){
+        case 'W':
+            if(rover.position.x>0){
+                rover.position.x--;
+            }else{
+                console.log('Rover exceed the grid', rover.position);
+            }
+            travelLog(rover.travelLog, 'X:'+rover.position.x);
+            break;
+        case 'E':
+            if(rover.position.x<10){
+                rover.position.x++;
+            } else {
+                console.log('Rover exceed the grid', rover.position);
+            }
+            travelLog(rover.travelLog, 'X:'+rover.position.x);
+            break;
+        case 'S':
+            if(rover.position.y<10){
+                rover.position.y++;
+            }else{
+                console.log('Rover exceed the grid', rover.position);
+            }
+            travelLog(rover.travelLog, 'Y:'+rover.position.y);
+            break;
+        default:
+            if(rover.position.y>0){
+                rover.position.y--;
+            }else{
+                console.log('Rover exceed the grid', rover.position);
+            }
+            travelLog(rover.travelLog, 'Y:'+rover.position.y);
+        }
+  }
+
+
+  function moveBackward(rover){
     switch (rover.direction){
       case 'W':
-        rover.position.x--;
-        travelLog(rover.travelLog, 'X:'+rover.position.x);
-        //console.log(rover.position);
-        break;
+          if(rover.position.x<10){
+              rover.position.x++;
+          }else{
+              console.log('Rover exceed the grid', rover.position);
+          }
+          travelLog(rover.travelLog, 'X:'+rover.position.x);
+          break;
       case 'E':
-        rover.position.x++;
-        travelLog(rover.travelLog, 'X:'+rover.position.x);
-        //console.log(rover.position);
-        break;
+          if(rover.position.x>0){
+              rover.position.x--;
+          } else {
+              console.log('Rover exceed the grid', rover.position);
+          }
+          travelLog(rover.travelLog, 'X:'+rover.position.x);
+          break;
       case 'S':
-        rover.position.y++;
-        travelLog(rover.travelLog, 'Y:'+rover.position.y);
-        //console.log(rover.position);
-        break;
+          if(rover.position.y>0){
+              rover.position.y--;
+          }else{
+              console.log('Rover exceed the grid', rover.position);
+          }
+          travelLog(rover.travelLog, 'Y:'+rover.position.y);
+          break;
       default:
-        rover.position.y--;
-        travelLog(rover.travelLog, 'Y:'+rover.position.y);
-        //console.log(rover.position);
-    }
-     
-  }
-  
+          if(rover.position.y<10){
+              rover.position.y++;
+          }else{
+              console.log('Rover exceed the grid', rover.position);
+          }
+          travelLog(rover.travelLog, 'Y:'+rover.position.y);
+      }
+}
+
   
   function tooManyCommands (commands) {
     let lengthCommands = commands.length;
@@ -120,6 +167,9 @@ let rover = {
         case 'f':
           moveForward(rover);
           break;
+        case 'b':
+            moveBackward(rover);
+            break;
         default:
           break;            
       }
@@ -154,11 +204,15 @@ let rover = {
   //Final result of the actions above :::: S X:1 Y:1
   
   
-  tooManyCommands('rrlfrf');
-  // Final result of the above function :::: S X:1 Y:1
+  tooManyCommands('frfffffffffffrffbbb');
   
   
   for (let key in rover){
-    console.log('\n DIRECTION \n ',  rover.direction, '\n POSITION X/Y \n ', rover.position.x, rover.position.y);
-    console.log('\n', rover.travelLog);
+      //Status Rover Message
+      //console.log('\n DIRECTION \n ',  rover.direction, '\n POSITION X/Y \n ', rover.position.x, rover.position.y);
+      //
+      //Tracking Rover Message
+      //console.log('\n', rover.travelLog);
   }
+
+  console.log('\n', rover.travelLog);
